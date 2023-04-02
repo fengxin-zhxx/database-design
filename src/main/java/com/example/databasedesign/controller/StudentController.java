@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.databasedesign.utils.helperUtil.pageHelper;
+
 @RestController
 @RequestMapping("/student")
 @CrossOrigin
@@ -42,15 +44,7 @@ public class StudentController {
         System.out.println(params);
         Map<String, Object> res = new HashMap<>();
         List<Student> studentList = studentService.selectStudent((String) params.get("dept_name"), (String) params.get("name"));
-        res.put("data", studentList);
-        Integer pindex = (Integer) params.get("pageIndex");
-        Integer psize = (Integer) params.get("pageSize");
-        if(pindex != null && psize != null){
-            studentList = studentList.subList((pindex - 1) * psize, Math.min(pindex * psize, studentList.size()));
-
-        }
-        res.put("pagetotal", studentList.size());
-        return res;
+        return pageHelper(studentList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
     }
 
     @RequestMapping("/update")
