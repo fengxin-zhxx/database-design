@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StudentService {
@@ -26,5 +27,7 @@ public class StudentService {
     public void updateStudent(Student student){studentMapper.updateStudent(student);}
 
     public void deleteStudent(String id){studentMapper.deleteStudentById(id);}
+
+    public List<Map<String, Object>> selectCoursesByStudentId(String studentId){return studentMapper.selectCourseByStudentId(studentId);}
 
 }

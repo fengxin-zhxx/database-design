@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.databasedesign.utils.helperUtil.pageHelper;
+import static com.example.databasedesign.utils.Result.pageHelper;
 
 @RestController
 @CrossOrigin
@@ -45,10 +45,9 @@ public class ManagerController {
     }
 
     @RequestMapping("/student/select")
-    public Map<String, Object> selectStudent(@RequestBody Map<String, Object> params){
+    public Result selectStudent(@RequestBody Map<String, Object> params){
         System.out.println("SELECT STUDENT");
         System.out.println(params);
-        Map<String, Object> res = new HashMap<>();
         List<Student> studentList = studentService.selectStudent((String) params.get("dept_name"), (String) params.get("name"));
         return pageHelper(studentList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
     }
@@ -94,7 +93,7 @@ public class ManagerController {
     }
 
     @RequestMapping("/classroom/select")
-    public Map<String, Object> selectClassroom(@RequestBody Map<String, Object> params){
+    public Result selectClassroom(@RequestBody Map<String, Object> params){
         System.out.println("SELECT CLASSROOM");
         System.out.println(params);
         List<Classroom> classroomList = classroomService.selectClassroom((String) params.get("building"), (String) params.get("room_number"));
@@ -143,7 +142,7 @@ public class ManagerController {
     }
 
     @RequestMapping("/instructor/select")
-    public Map<String, Object> selectInstructor(@RequestBody Map<String, Object> params){
+    public Result selectInstructor(@RequestBody Map<String, Object> params){
         System.out.println("SELECT INSTRUCTOR");
         System.out.println(params);
         Map<String, Object> res = new HashMap<>();

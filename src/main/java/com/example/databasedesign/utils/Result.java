@@ -1,8 +1,7 @@
 package com.example.databasedesign.utils;
 
-
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //统一返回结果的类
@@ -94,5 +93,13 @@ public class Result {
     public Result data(Map<String, Object> map){
         this.setData(map);
         return this;
+    }
+
+    public static Result pageHelper(List list, Integer pIndex, Integer pSize){
+        Integer siz = list.size();
+        if(pIndex != null && pSize != null){
+            list = list.subList((pIndex - 1) * pSize, Math.min(pIndex * pSize, list.size()));
+        }
+        return Result.ok().data("data", list).data("pagetotal", siz);
     }
 }
