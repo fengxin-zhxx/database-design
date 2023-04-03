@@ -20,7 +20,7 @@ import static com.example.databasedesign.utils.Result.pageHelper;
 
 @RestController
 @CrossOrigin
-public class ManagerController {
+public class AdministerController {
 
     @Autowired
     private SelectorService selectorService;

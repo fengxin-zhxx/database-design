@@ -24,6 +24,8 @@ public class SelectorService {
     private InstructorMapper instructorMapper;
     @Autowired
     private SectionMapper sectionMapper;
+    @Autowired
+    private TeachesMapper teachesMapper;
 
 
     public List<Student> selectStudent(String deptName, String name){
@@ -61,7 +63,31 @@ public class SelectorService {
 
     public List<Map<String, Object>> selectAllSections(){return sectionMapper.selectAll();}
 
-    public List<Map<String, Object>> selectSectionsByStudentId(String studentId){return sectionMapper.selectSectionByStudentId(studentId);}
+    public List<Map<String, Object>> selectSectionsByStudentId(String studentId, String title, String deptName){
+        boolean s = StringUtil.isEmpty(studentId), t = StringUtil.isEmpty(title), d = StringUtil.isEmpty(deptName);
+        if(!s){
+            if(!t){
+                if(!d){
+                    // !s !t !d
+                    return sectionMapper.selectSectionByTitleAndDeptNameAndStudentId(studentId, title, deptName);
+                }else{
+                    // !s !t d
+                    return sectionMapper.selectSectionByTitleAndStudentId(studentId,title);
+                }
+            }else{
+                if(!d){
+                    // !s t !d
+                    return  sectionMapper.selectSectionByDeptNameAndStudentId(studentId, deptName);
+                }else{
+                    //!s t d
+                    return sectionMapper.selectSectionByStudentId(studentId);
+                }
+            }
+        }else{
+            return sectionMapper.selectAll();
+        }
+
+    }
 
     public List<Map<String, Object>> selectSectionsExceptStudent(String studentId, String title, String deptName){
         boolean s = StringUtil.isEmpty(studentId), t = StringUtil.isEmpty(title), d = StringUtil.isEmpty(deptName);
@@ -87,4 +113,12 @@ public class SelectorService {
             return sectionMapper.selectAll();
         }
     }
+
+    public List<Map<String, Object>> selectSectionAndStudentByInstructorId(String instructorId, String title){
+        boolean t = StringUtil.isEmpty(title);
+        if(!t) return teachesMapper.selectSectionAndStudentByInstructorId(instructorId, title);
+        else return teachesMapper.selectAllSectionAndStudentByInstructorId(instructorId);
+    }
+
+    public List<Map<String, Object>> selectSectionByInstructorId(String instructorId) {return teachesMapper.selectSectionByInstructorId(instructorId);}
 }

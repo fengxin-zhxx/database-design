@@ -81,7 +81,7 @@ public class Section {
         this.courseId = (String) params.get("course_id");
         this.secId = (String) params.get("sec_id");
         this.semester = (String) params.get("semester");
-        this.year = params.get("year") == null ? 0 : Integer.parseInt((String)params.get("year"));
+        this.year = params.get("year") == null ? 0 : (Integer)params.get("year");
         this.building = (String) params.get("building");
         this.roomNumber = (String) params.get("room_number");
         this.timeSlotId = (String) params.get("time_slot_id");

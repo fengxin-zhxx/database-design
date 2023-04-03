@@ -43,5 +43,9 @@ public class ManagerService {
 
     public void deleteInstructor(String id){instructorMapper.deleteInstructorById(id);}
 
-    public void insertTakes(String studentID, Section section){takesMapper.insertTakes(studentID, section);}
+    public void insertTakes(String studentId, Section section){takesMapper.insertTakes(studentId, section);}
+
+    public void deleteSection(String studentId, Section section) {takesMapper.deleteTakes(studentId, section);}
+
+    public void assignGradeToTakes(String studentId, Section section, String grade) {takesMapper.assignGradeToTakes(studentId, section, grade);}
 }
