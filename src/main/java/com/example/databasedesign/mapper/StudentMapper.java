@@ -34,7 +34,6 @@ public interface StudentMapper extends BaseMapper<Student> {
     @Delete("delete from student where id=#{id}")
     void deleteStudentById(String id);
 
-    @Select("select course_id, title, sec_id, dept_name, semester, year, grade from takes natural join course where ID = #{studentId}")
-    List<Map<String, Object>> selectCourseByStudentId(String studentId);
+
 
 }

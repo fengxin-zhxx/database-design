@@ -1,8 +1,10 @@
 package com.example.databasedesign.controller;
 
-import com.example.databasedesign.bean.Student;
-import com.example.databasedesign.service.StudentService;
+import com.example.databasedesign.bean.Section;
+import com.example.databasedesign.service.ManagerService;
+import com.example.databasedesign.service.SelectorService;
 import com.example.databasedesign.utils.Result;
+import com.example.databasedesign.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,14 +20,51 @@ import static com.example.databasedesign.utils.Result.pageHelper;
 @CrossOrigin
 public class StudentController {
     @Autowired
-    private StudentService studentService;
+    private SelectorService selectorService;
+    @Autowired
+    private ManagerService managerService;
 
-    @RequestMapping("/student/course")
-    public Result selectCoursesByStudent(@RequestBody Map<String, Object> params){
-        System.out.println("SELECT COURSE BY ID");
+    @RequestMapping("/student/section_untaken")
+    public Result selectUntakenCourses(@RequestBody Map<String, Object> params){
+        System.out.println("SELECT UNTAKEN COURSE BY ID");
         System.out.println(params);
-        List<Map<String, Object>> courseList = studentService.selectCoursesByStudentId((String) params.get("ID"));
+        List<Map<String, Object>> courseList = null;
+
+        courseList = selectorService.selectSectionsExceptStudent((String) params.get("ID"), (String) params.get("title"), (String) params.get("dept_name"));
+
         return pageHelper(courseList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
+    }
+
+
+    @RequestMapping("/student/section_taken")
+    public Result selectTakenCourses(@RequestBody Map<String, Object> params){
+        System.out.println("SELECT TAKEN COURSE BY ID");
+        System.out.println(params);
+        List<Map<String, Object>> courseList = null;
+        if(params.get("ID") != null){
+            courseList = selectorService.selectSectionsByStudentId((String) params.get("ID"));
+        }else{
+            courseList = selectorService.selectAllSections();
+        }
+        return pageHelper(courseList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
+    }
+
+
+
+
+    @RequestMapping("/student/select_course")
+    public Result insertCourseForStudent(@RequestBody Map<String, Object> params){
+        System.out.println("Insert Course For Student");
+        System.out.println(params);
+        try{
+            Section section = new Section(params);
+            managerService.insertTakes((String) params.get("ID"), section);
+            System.out.println("选课成功!");
+            return Result.ok();
+        }catch (Exception e){
+            System.out.println(e);
+            return Result.error(e.getMessage());
+        }
     }
 
 }
