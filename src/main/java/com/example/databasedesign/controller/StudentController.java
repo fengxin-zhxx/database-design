@@ -1,6 +1,7 @@
 package com.example.databasedesign.controller;
 
 import com.example.databasedesign.bean.Section;
+import com.example.databasedesign.bean.Student;
 import com.example.databasedesign.service.ManagerService;
 import com.example.databasedesign.service.SelectorService;
 import com.example.databasedesign.utils.Result;
@@ -34,7 +35,6 @@ public class StudentController {
 
         return pageHelper(courseList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
     }
-
     @RequestMapping("/student/section_taken")
     public Result selectTakenSection(@RequestBody Map<String, Object> params){
         System.out.println("SELECT TAKEN COURSE BY ID");
@@ -78,4 +78,25 @@ public class StudentController {
         }
     }
 
+    @RequestMapping("/student/student_info")
+    public Result getInformationForStudent(@RequestBody Map<String, Object> params){
+        System.out.println("Get Information For Student");
+        System.out.println(params);
+        List<Student> courseList = null;
+        courseList = selectorService.selectStudent((String) params.get("ID"));
+        return pageHelper(courseList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
+    }
+
+    @RequestMapping("/student/update_self_info")
+    public Result updateStudent(@RequestBody Map<String, Object> params){
+        System.out.println("UPDATE STUDENT SELF INFO");
+        System.out.println(params);
+        try{
+            managerService.updateStudentSelfInfo(new Student(params));
+            return Result.ok();
+        }catch (Exception e){
+            System.out.println(e);
+            return Result.error(e.getMessage());
+        }
+    }
 }

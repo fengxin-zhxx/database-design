@@ -12,11 +12,14 @@ import java.util.List;
 
 @Repository
 public interface InstructorMapper extends BaseMapper<Instructor> {
-    @Insert("insert into instructor values(#{instructorId}, #{name}, #{deptName}, 0)")
+    @Insert("insert into instructor values(#{instructorId}, #{name}, #{deptName}, #{salary} , null ,null ,null)")
     void insertInstructor(Instructor instructor);
 
     @Select("select * from instructor")
     List<Instructor> selectAll();
+
+    @Select("select * from instructor where ID=#{Id}")
+    List<Instructor> selectInstructorById(String Id);
 
     @Select("select * from instructor where dept_name=#{deptName}")
     List<Instructor> selectInstructorByDeptName(String deptName);
@@ -29,6 +32,9 @@ public interface InstructorMapper extends BaseMapper<Instructor> {
 
     @Update("update instructor set name=#{name}, dept_name=#{deptName}, salary=#{salary} where ID=#{instructorId}")
     void updateInstructor(Instructor instructor);
+
+    @Update("update instructor set name=#{name}, dept_name=#{deptName}, salary=#{salary} , i_tel=#{iTel} , i_address=#{iAddress}, i_password=#{iPassword}where ID=#{instructorId}")
+    void updateInstructorSelfInfo(Instructor instructor);
 
     @Delete("delete from instructor where id=#{id}")
     void deleteInstructorById(String id);

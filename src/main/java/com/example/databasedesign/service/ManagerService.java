@@ -33,13 +33,19 @@ public class ManagerService {
 
     public void deleteClassroom(String building, String room_number){classroomMapper.deleteClassroom(building, room_number);}
 
-    public void insertStudent(Student student){studentMapper.insertStudent(student);}public void updateStudent(Student student){studentMapper.updateStudent(student);}
+    public void insertStudent(Student student){studentMapper.insertStudent(student);}
+
+    public void updateStudent(Student student){studentMapper.updateStudent(student);}
+
+    public void updateStudentSelfInfo(Student student){studentMapper.updateStudentSelfInfo(student);}
 
     public void deleteStudent(String id){studentMapper.deleteStudentById(id);}
 
     public void insertInstructor(Instructor instructor){instructorMapper.insertInstructor(instructor);}
 
     public void updateInstructor(Instructor instructor){instructorMapper.updateInstructor(instructor);}
+
+    public void updateInstructorSelfInfo(Instructor instructor){instructorMapper.updateInstructorSelfInfo(instructor);}
 
     public void deleteInstructor(String id){instructorMapper.deleteInstructorById(id);}
 

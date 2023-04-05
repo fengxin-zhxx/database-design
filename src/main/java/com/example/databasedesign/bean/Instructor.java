@@ -7,6 +7,9 @@ public class Instructor {
     public String name;
     public String deptName;
     public Double salary;
+    public String iTel;
+    public String iAddress;
+    public String iPassword;
 
     public String getInstructorId() {
         return instructorId;
@@ -40,11 +43,14 @@ public class Instructor {
         this.salary = salary;
     }
 
-    public Instructor(String studentId, String name, String deptName, Double salary) {
+    public Instructor(String studentId, String name, String deptName, Double salary , String iTel , String iAddress ,String iPassword) {
         this.instructorId = studentId;
         this.name = name;
         this.deptName = deptName;
         this.salary = salary;
+        this.iTel = iTel;
+        this.iAddress = iAddress;
+        this.iPassword = iPassword;
     }
 
     public Instructor(Map<String, Object> params){
@@ -53,5 +59,8 @@ public class Instructor {
         this.deptName = (String) params.get("dept_name");
         if(params.get("salary") != null) this.salary = Double.parseDouble((String) params.get("salary"));
         else this.salary = 0.0;
+        if(params.get("i_tel") != null) this.iTel = (String) params.get("i_tel");
+        if(params.get("i_address") != null) this.iAddress = (String) params.get("i_address");
+        if(params.get("i_password") != null) this.iPassword = (String) params.get("i_password");
     }
 }

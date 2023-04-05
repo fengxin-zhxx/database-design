@@ -1,6 +1,8 @@
 package com.example.databasedesign.controller;
 
+import com.example.databasedesign.bean.Instructor;
 import com.example.databasedesign.bean.Section;
+import com.example.databasedesign.bean.Student;
 import com.example.databasedesign.service.ManagerService;
 import com.example.databasedesign.service.SelectorService;
 import com.example.databasedesign.utils.Result;
@@ -59,6 +61,28 @@ public class InstructorController {
             managerService.assignGradeToTakes(studentId, section, grade);
             return Result.ok();
         }catch(Exception e){
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @RequestMapping("/instructor/instructor_info")
+    public Result getInformationForInstructor(@RequestBody Map<String, Object> params){
+        System.out.println("Get Information For Instructor");
+        System.out.println(params);
+        List<Instructor> courseList = null;
+        courseList = selectorService.selectInstructor((String) params.get("ID"));
+        return pageHelper(courseList, (Integer) params.get("pageIndex"), (Integer) params.get("pageSize"));
+    }
+
+    @RequestMapping("/instructor/update_self_info")
+    public Result updateStudent(@RequestBody Map<String, Object> params){
+        System.out.println("UPDATE INSTRUCTOR SELF INFO");
+        System.out.println(params);
+        try{
+            managerService.updateInstructorSelfInfo(new Instructor(params));
+            return Result.ok();
+        }catch (Exception e){
+            System.out.println(e);
             return Result.error(e.getMessage());
         }
     }

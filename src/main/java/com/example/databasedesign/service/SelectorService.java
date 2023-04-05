@@ -27,6 +27,13 @@ public class SelectorService {
     @Autowired
     private TeachesMapper teachesMapper;
 
+    public List<Student> selectStudent(String Id){
+        return studentMapper.selectStudentById(Id);
+    }
+
+    public List<Instructor> selectInstructor(String Id){
+        return instructorMapper.selectInstructorById(Id);
+    }
 
     public List<Student> selectStudent(String deptName, String name){
         boolean d = StringUtil.isEmpty(deptName), n = StringUtil.isEmpty(name);
