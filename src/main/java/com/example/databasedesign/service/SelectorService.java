@@ -26,6 +26,8 @@ public class SelectorService {
     private SectionMapper sectionMapper;
     @Autowired
     private TeachesMapper teachesMapper;
+    @Autowired
+    private UserMapper userMapper ;
 
     public List<Student> selectStudent(String Id){
         return studentMapper.selectStudentById(Id);
@@ -66,7 +68,6 @@ public class SelectorService {
         if(!d) return courseMapper.selectCourseByDeptName(deptName);
         return courseMapper.selectCourseByTitle(title);
     }
-
 
     public List<Map<String, Object>> selectAllSections(){return sectionMapper.selectAll();}
 
@@ -128,4 +129,16 @@ public class SelectorService {
     }
 
     public List<Map<String, Object>> selectSectionByInstructorId(String instructorId) {return teachesMapper.selectSectionByInstructorId(instructorId);}
+
+    public List<Map<String,Object>> selectUserByNameAndPassword(int method ,String username,String password){
+        if(method == 1){
+            return userMapper.selectStudentUser(username,password);
+        }
+        else if(method == 2){
+            return userMapper.selectInstructorUser(username,password);
+        }
+        else{
+            return userMapper.selectManagerUser(username,password);
+        }
+    }
 }
