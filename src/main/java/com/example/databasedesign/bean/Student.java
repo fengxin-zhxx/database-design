@@ -57,7 +57,14 @@ public class Student {
         this.studentId = (String) params.get("ID");
         this.name = (String) params.get("name");
         this.deptName = (String) params.get("dept_name");
-        if(params.get("tot_cred") != null) this.totCred = Integer.parseInt((String) params.get("tot_cred"));
+        if(params.get("tot_cred") != null) {
+            Object totCred = params.get("tot_cred");
+            if(totCred.getClass().equals(Integer.class)){
+                this.totCred = (Integer) totCred;
+            }else{
+                this.totCred = Integer.parseInt((String) totCred);
+            }
+        }
         else this.totCred = 0;
         if(params.get("s_tel") != null) this.sTel = (String) params.get("s_tel");
         if(params.get("s_address") != null) this.sAddress = (String) params.get("s_address");

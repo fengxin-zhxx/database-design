@@ -49,7 +49,16 @@ public class Course {
 
     public Course(Map<String, Object> params){
         this.courseId = (String) params.get("course_id");
-        this.credits = Integer.parseInt((String) params.get("credits"));
+        if(params.get("credits") != null){
+            Object credits = params.get("credits");
+            if(credits.getClass().equals(Integer.class)){
+                this.credits = (Integer) params.get("credits");
+            }else{
+                this.credits = Integer.parseInt((String) params.get("credits"));
+            }
+        }else{
+            this.credits = 0;
+        }
         if(params.get("title") != null) this.title = (String) params.get("title");
         if(params.get("dept_name") != null) this.deptName = (String) params.get("dept_name");
     }

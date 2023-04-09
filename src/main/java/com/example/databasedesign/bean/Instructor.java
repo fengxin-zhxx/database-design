@@ -57,7 +57,14 @@ public class Instructor {
         this.instructorId = (String) params.get("ID");
         this.name = (String) params.get("name");
         this.deptName = (String) params.get("dept_name");
-        if(params.get("salary") != null) this.salary = Double.parseDouble((String) params.get("salary"));
+        if(params.get("salary") != null) {
+            Object salary = params.get("salary");
+            if(salary.getClass().equals(Double.class)){
+                this.salary = (Double) salary;
+            }else{
+                this.salary = Double.parseDouble((String) salary);
+            }
+        }
         else this.salary = 0.0;
         if(params.get("i_tel") != null) this.iTel = (String) params.get("i_tel");
         if(params.get("i_address") != null) this.iAddress = (String) params.get("i_address");

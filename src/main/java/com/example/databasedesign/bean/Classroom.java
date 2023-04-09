@@ -40,7 +40,14 @@ public class Classroom {
     public Classroom(Map<String, Object> params){
         this.building = (String) params.get("building");
         this.roomNumber = (String) params.get("room_number");
-        if(params.get("capacity") != null) this.capacity = Integer.parseInt((String) params.get("capacity"));
+        if(params.get("capacity") !=  null){
+            Object capacity = params.get("capacity");
+            if(capacity.getClass().equals(Integer.class)){
+                this.capacity = (Integer) capacity;
+            }else{
+                this.capacity = Integer.parseInt((String) capacity);
+            }
+        }
         else this.capacity = 0;
     }
 }
